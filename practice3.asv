@@ -11,7 +11,9 @@ function deinterleaved = deinterleaver(bits, perm)
     inv_perm = zeros(1, n);
     inv_perm(perm) = 1:n;          % (позиция) = число
     deinterleaved = bits(inv_perm);
-end 
+end
+
+
 
 str = input('Введите битики: ', 's');
 bits = str - '0'; 
