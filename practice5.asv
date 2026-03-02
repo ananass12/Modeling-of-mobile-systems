@@ -85,8 +85,8 @@ prefix = signal_fft(end-Tcp+1:end);
 
 final_signal = [prefix, signal_fft];
 
-len = Tcp + NRS + Nqpsk + 2*Nz;
-fprintf('\n Необходимая длина вектора (формула) = %d \n', len);
+% len = Tcp + NRS + Nqpsk + 2*Nz;
+% fprintf('\n Необходимая длина вектора = %d \n', len);
 
-fprintf('\nИтоговый вектор (реальная длина = %d):\n', length(final_signal));
+fprintf('\nИтоговый вектор (длина = %d):\n', length(final_signal));
 disp(final_signal);
