@@ -1,8 +1,7 @@
-% ofdm модуляция
+%% ofdm модуляция
 clear; clc;
 
-bits = rand(50);
-bits = bits > 0.5;
+bits = randi([0 1], 50);
 
 fprintf('Комплексные символы: ');
 c = [];
@@ -19,7 +18,7 @@ fprintf('\n');
 fprintf('Кол-во символов на выходе модулятора = %d', n);
 fprintf('\n');
 
-RS = 9;
+RS = 9;  % шаг опорных поднесущих
 Nqpsk = n;  % кол-во qpsk символов
 NRS = floor(Nqpsk/RS) + 1; % кол-во опорных поднесущих
 indexes = zeros(1, NRS); 
@@ -41,8 +40,8 @@ disp(indexes);
 %% размещение опорного сигнала
 
 signal = zeros(1, Nqpsk + NRS);
-j = 1;
-z = 1;
+j = 1;  % счетчик для опорного сигнала
+z = 1;  % счетчик для данных
 
 for i = 1:length(signal)
      if j <= NRS && i == indexes(j)
@@ -51,13 +50,12 @@ for i = 1:length(signal)
     else
         signal(i) = c(z);
         z = z + 1;
-    end
-
+     end
 end
 
-fprintf('\n');
-disp('Полный сигнал: ');
-disp(signal);
+%fprintf('\n');
+%disp('Полный сигнал: ');
+%disp(signal);
 
 %% добавление нулевого защитного интервала
 
@@ -68,8 +66,8 @@ zero = zeros(1, Nz);
 signal_with_zeros = [zero, signal, zero];
 
 fprintf('\n');
-disp('Сигнал с защитными нулями: ');
-disp(signal_with_zeros);
+%disp('Сигнал с защитными нулями: ');
+%disp(signal_with_zeros);
 
 %% обратное ДПФ
 
@@ -88,5 +86,5 @@ final_signal = [prefix, signal_fft];
 len = Tcp + NRS + Nqpsk + 2*Nz;
 fprintf('\n Необходимая длина вектора (формула) = %d \n', len);
 
-fprintf('\nИтоговый вектор (реальная длина = %d):\n', length(final_signal));
+fprintf('\n Итоговый (реальный) вектор = %d\n', length(final_signal));
 disp(final_signal);

@@ -17,7 +17,7 @@ c = [];
 switch type
     case 1 % QPSK
         for i = 1:2:length(bits)
-            complex = (1/sqrt(2))* * ((1-2*bits(i)) + 1j*(1-2*bits(i+1)));
+            complex = (1/sqrt(2))* ((1-2*bits(i)) + 1j*(1-2*bits(i+1)));
             fprintf('(%g%+gi) ', real(complex), imag(complex));
             c = [c, complex];
         end
